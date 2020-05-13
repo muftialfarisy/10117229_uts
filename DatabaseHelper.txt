@@ -1,0 +1,34 @@
+package com.example.kontak;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
+
+public class DatabaseHelper extends SQLiteOpenHelper {
+    public static final String DATABASE_NAME = "UNIKOM.db";
+    public static final String TABLE_NAME = "Mahasiswa";
+    public static final String COL_1 = "NIM";
+    public static final String COL_2 = "Nama";
+    public static final String COL_3 = "Kelas";
+    public static final String COL_4 = "Telepon";
+    public static final String COL_5 = "Email";
+    public static final String COL_6 = "SocialMedia";
+
+    public DatabaseHelper(@Nullable Context context) {
+        super(context, DATABASE_NAME, null, 1);
+        SQLiteDatabase db = this.getWritableDatabase();
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (NIM INTEGER PRIMARY KEY,Nama TEXT,Kelas TEXT,Telepon INTEGER,Email TEXT,SocialMedia TEXT)");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        onCreate(db);
+    }
+}
